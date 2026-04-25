@@ -1,0 +1,21 @@
+version: 1
+rocks:
+  - name: planner
+    rockcraft-yaml: planner-rockcraft.yaml
+    pack-dir: .
+  - name: webhook-gateway
+    rockcraft-yaml: webhook-gateway-rockcraft.yaml
+    pack-dir: .
+charms:
+  - name: github-runner-planner
+    charmcraft-yaml: charms/planner-operator/charmcraft.yaml
+    resources:
+      planner-image:
+        type: oci-image
+        rock: planner
+  - name: github-runner-webhook-gateway
+    charmcraft-yaml: charms/webhook-gateway-operator/charmcraft.yaml
+    resources:
+      webhook-gateway-image:
+        type: oci-image
+        rock: webhook-gateway

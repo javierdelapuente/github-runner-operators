@@ -1,0 +1,28 @@
+project: github-runner-operators
+path: /home/ubuntu/proj
+kill-timeout: 60m
+backends:
+  integration-test:
+    systems:
+    - ubuntu-24.04
+environment:
+  SUDO_USER: ''
+  SUDO_UID: ''
+  LANG: C.UTF-8
+  LANGUAGE: en
+  CONCIERGE: '$(HOST: echo "${CONCIERGE:-concierge.yaml}")'
+exclude:
+- .git
+- .tox
+- .venv
+- .*_cache
+suites:
+  charms/tests/integration/:
+    summary: integration tests
+    backends:
+    - integration-test
+    environment:
+      MODULE/test_combined: test_combined
+      MODULE/test_planner: test_planner
+      MODULE/test_webhook_gateway: test_webhook_gateway
+      TOX_ENV: charms-integration
