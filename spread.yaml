@@ -1,16 +1,18 @@
 project: github-runner-operators
 path: /home/ubuntu/proj
 kill-timeout: 60m
+warn-timeout: 1m
 backends:
   integration-test:
+    type: integration-test
     systems:
     - ubuntu-24.04
 environment:
-  SUDO_USER: ''
-  SUDO_UID: ''
+  SUDO_USER: ubuntu
   LANG: C.UTF-8
   LANGUAGE: en
   CONCIERGE: '$(HOST: echo "${CONCIERGE:-concierge.yaml}")'
+  OPCLI_GIT_REF: '$(HOST: echo "${OPCLI_GIT_REF:-main}")'
 exclude:
 - .git
 - .tox
